@@ -1,26 +1,48 @@
 {
-  "name": "nuxt-app",
-  "private": true,
+  "name": "nuxt3-auth-app",
+  "private": false,
   "type": "module",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "ui:add": "npx shadcn-vue@latest add",
+    "ui:update": "npx shadcn-vue@latest update",
+    "ui:init": "npx shadcn-vue@latest init"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.3.1",
     "@nuxt/devtools": "^1.0.8",
     "@nuxtjs/tailwindcss": "^6.11.0",
+    "@types/date-fns": "^2.6.0",
     "nuxt": "^3.9.3",
+    "nuxt-auth-utils": "^0.0.14",
     "nuxt-headlessui": "^1.1.5",
+    "shadcn-nuxt": "^0.8.7",
     "tailwind-scrollbar": "^3.0.5",
+    "typescript": "^5.3.3",
     "vue": "^3.4.14",
     "vue-router": "^4.2.5"
   },
   "dependencies": {
     "@morev/vue-transitions": "^2.3.6",
+    "@pinia/nuxt": "^0.5.1",
+    "@radix-icons/vue": "^1.0.0",
+    "@tanstack/vue-table": "^8.11.7",
+    "@vueuse/core": "^10.7.2",
     "@vueuse/nuxt": "^10.7.2",
-    "nuxt-icon": "^0.6.8"
+    "chart.js": "^4.4.1",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "date-fns": "^3.3.1",
+    "lucide-vue-next": "^0.314.0",
+    "nuxt-icon": "^0.6.8",
+    "pinia": "^2.1.7",
+    "radix-vue": "^1.3.2",
+    "tailwind-merge": "^2.2.1",
+    "tailwindcss-animate": "^1.0.7",
+    "vue-chartjs": "^5.3.0"
   }
 }

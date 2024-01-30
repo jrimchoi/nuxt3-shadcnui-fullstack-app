@@ -2,12 +2,13 @@
   <div>
     <!-- Header  -->
     <Header />
-
-    <!-- Sidebar -->
-    <Sidebar />
-
-    <!-- Body  -->
-    <slot />
+    <div class="container lg:grid lg:grid-cols-12 lg:gap-6">
+      <!-- Sidebar -->
+      <Sidebar class="hidden lg:col-span-2 lg:block" />
+      <!-- Body  -->
+      <slot />
+      <Toaster variant="outline"/>
+    </div>
   </div>
 </template>
 

@@ -22,9 +22,9 @@
               <hr v-if="p.divider" class="my-2" />
               <HMenuItem v-else v-slot="{ active }">
                 <NuxtLink
-                  @click="action(p.path, p.title)"
+                  @click="onClick({ path:p.path, title: p.title })"
                   :class="[active && 'bg-muted']"
-                  class="inline-flex w-full items-center rounded-md p-2 text-sm font-medium"
+                  class="inline-flex w-full items-center rounded-md p-2 text-sm font-medium cursor-pointer"
                 >
                   <Icon v-if="p.icon" :name="p.icon" class="h-4 w-4 text-muted-foreground mr-2" /> {{ p.title }}
                 </NuxtLink>
@@ -51,13 +51,13 @@ defineProps({
   },
 });
 
-function action (path: string, title: String) {
-  if(title === 'Logout') {
+function onClick (payload: { path: string, title: String }) {
+  if(payload.title === 'Logout') {
     useAuthStore().clear()
-    navigateTo('/')
-    window.location.reload()
+    useRouter().push({ path: payload.path }) 
+    //window.location.reload()
   } else {
-    navigateTo(path)
+    useRouter().push({ path: payload.path }) 
   }
 }
 </script>

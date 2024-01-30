@@ -1,3 +1,4 @@
+import { useAuthStore } from '../stores/auth';
 <template>
   <header class="sticky top-0 z-20 border-b bg-background/80 backdrop-blur">
     <!-- Flex container  -->
@@ -39,11 +40,11 @@ const user = ref({
 
 // Items that will be displayed in menu
 const profileMenuOptions = ref([
-  { title: 'Profile', icon: 'heroicons:user', path: '/admin', divider: false },
-  { title: 'Billing', icon: 'heroicons:credit-card', path: '/', divider: false },
-  { title: 'Settings', icon: 'heroicons:cog-8-tooth', path: '/', divider: false },
-  { title: 'Team members', icon: 'heroicons:users', path: '/', divider: false },
-  { title: 'Sales', icon: 'heroicons:banknotes',path: '/', divider: false },
+  { title: 'Profile', icon: 'heroicons:user', path: '/profile', divider: false },
+  { title: 'Billing', icon: 'heroicons:credit-card', path: '/billing', divider: false },
+  { title: 'Settings', icon: 'heroicons:cog-8-tooth', path: '/settings', divider: false },
+  { title: 'Team members', icon: 'heroicons:users', path: '/teams', divider: false },
+  { title: 'Sales', icon: 'heroicons:banknotes',path: '/sales', divider: false },
   { title: '', icon: '',  path: '', divider: true },
   { title: 'Logout', icon: 'heroicons:arrow-right-on-rectangle', path: '/', divider: false },
 ]);
@@ -52,9 +53,9 @@ const mobileMenu = (ok: true) => {
 }
 
 function login(){
-  useAuthStore().signIn()
-  window.location.reload()
-  navigateTo({path: '/admin' })
+  useAuthStore().signIn();
+  window.location.reload();
+  //useRouter().push({ path: '/' })
 
 }
 </script>

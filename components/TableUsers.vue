@@ -115,8 +115,6 @@
 </template>
 
 <script setup lang="ts">
-//import { ref } from 'vue'
-//import MySelect from './my/Select.vue';
 
 import {
   useVueTable,
@@ -153,29 +151,6 @@ const braidCrumbState = ref<BraidCrumbState[]>(
     { icon: '', label: "Users", path: '/'}
   ]
 )
-const logo = ref({
-  img: '/logoipsum-298.svg',
-  path: '/',
-  alt: 'Analytics logo',
-  name: 'Analytics',
-});
-
-const user = ref({
-  avatar: 'https://randomuser.me/api/portraits/med/men/75.jpg',
-  email: 'nastib@outlook.com',
-  username: 'Wilfrid NASSARA',
-});
-
-// Items that will be displayed in menu
-const profileMenuOptions = ref([
-  { title: 'Profile', icon: 'heroicons:user', path: '/admin', divider: false },
-  { title: 'Billing', icon: 'heroicons:credit-card', path: '/', divider: false },
-  { title: 'Settings', icon: 'heroicons:cog-8-tooth', path: '/', divider: false },
-  { title: 'Team members', icon: 'heroicons:users', path: '/', divider: false },
-  { title: 'Sales', icon: 'heroicons:banknotes', path: '/', divider: false },
-  { title: '', icon: '', path: '', divider: true },
-  { title: 'Logout', icon: 'heroicons:arrow-left-on-rectangle', path: '/', divider: false },
-]);
 
 const tableMenu = (ok: true) => {
   isOpen.value = ok;

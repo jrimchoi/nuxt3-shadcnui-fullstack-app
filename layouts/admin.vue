@@ -7,10 +7,11 @@
       <Sidebar class="hidden lg:col-span-2 lg:block" />
       <!-- Body  -->
       <slot />
-      <Toaster variant="outline"/>
+      <Toaster/>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+
 </script>

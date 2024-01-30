@@ -15,12 +15,12 @@
     {
       title: "Settings",
       icon: "heroicons:cog-8-tooth",
-      path: '/'
+      path: '/settings'
     },
     {
       title: "Help",
       icon: "heroicons:question-mark-circle",
-      path: '/'
+      path: '/help'
     },
     {
       title: "Logout",
@@ -32,59 +32,48 @@
     {
       title: "Dashboard",
       icon: "heroicons:home",
-      path: '/admin'
+      path: '/'
     },
     {
-      title: "Customers",
+      title: "Users",
       icon: "heroicons:user-group",
-      path: '/',
+      path: '/users',
+    },
+    {
+      title: "Clients",
+      icon: "heroicons:user-group",
+      path: '/clients',
+    },
+    {
+      title: "Suppliers",
+      icon: "heroicons:user-group",
+      path: '/suppliers',
+    },
+    {
+      title: "Products",
+      icon: "heroicons:cube",
+      path: '/products',
       items: [
-        { title: "List", path: '/' },
-        { title: "Create", path: '/' },
-        { title: "Edit", path: '/' },
-        { title: "Delete", path: '/' },
-        { title: "Details", path: '/' },
+        { title: "Catalogue", path: '/Catalogue', method: 'GET' },
+        { title: "Categories", path: '/category', method:'GET' },
+        { title: "Prices", path: '/price' },
       ],
     },
     {
       title: "Orders",
       icon: "heroicons:shopping-cart",
-      path: '/',
-      items: [
-        { title: "List", path: '/' },
-        { title: "Create", path: '/' },
-        { title: "Edit", path: '/' },
-        { title: "Delete", path: '/' },
-        { title: "Details", path: '/' },
-      ],
+      path: '/orders',
     },
-    {
-      title: "Products",
-      icon: "heroicons:cube",
-      path: '/',
-      items: [
-        { title: "Categories", path: '/' },
-        { title: "Prices", path: '/' },
-        { title: "Product", path: '/' },
-      ],
-    },
-    {
-      title: "Staff",
-      icon: "heroicons:user",
-      path: '/',
-      items: [
-        { title: "List", path: '/' },
-        { title: "Create", path: '/' },
-        { title: "Edit", path: '/' },
-        { title: "Delete", path: '/' },
-        { title: "Details", path: '/' },
-      ],
-    },
+
     {
       title: "Analytics",
       icon: "heroicons:chart-pie",
-      path: '/',
-      items: [{ title: "Overview", path: '/' }, { title: "Statistics", path: '/' }, { title: "Trends", path: '/' }],
+      path: '/analytics',
+      items: [
+        { title: "Overview", path: '/overview', method: 'GET' }, 
+        { title: "Statistics", path: '/statistics', method: 'GET' }, 
+        { title: "Trends", path: '/trends', method: 'GET' }
+      ],
     },
   ];
 </script>

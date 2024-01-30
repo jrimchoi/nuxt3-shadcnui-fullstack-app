@@ -2,7 +2,7 @@ import { defineStore, acceptHMRUpdate } from 'pinia';
 
 export const useAuthStore = defineStore('Auth', () => {
   const { loggedIn, user, session, clear, fetch } = useUserSession();
-
+  const protectedRoutes = ref(["/api/users"])
   const signIn = async () => {
     const { data: signIn } = await useFetch('/api/auth/login', { method: 'POST' });
     return signIn;

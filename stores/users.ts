@@ -25,8 +25,9 @@ export interface User {
 export const useUsersStore = defineStore('users', () => {
   /** state for holding users */
   const users = ref<User[]>();
-  /** Function to load user data */
-  const loadUsers = async() => {
+
+  /** Function to load users data */
+  async function loadUsers () {
     const {
       data: results,
       pending,
@@ -35,8 +36,8 @@ export const useUsersStore = defineStore('users', () => {
     } = await useFetch('/api/users', {
       lazy: true,
     });
-    
-    if(!results.value){
+     
+    if(!results.value?.length){
       useToast().toast({
         title: 'Oups !!!',
         description: 'No users loaded !, please logged in',
@@ -48,11 +49,6 @@ export const useUsersStore = defineStore('users', () => {
             return 'Try again'}
         })
       });
-      users.value = [];
-      return { users: [], pending: false}
-
-    } else {
-      users.value = results; 
     }
 
     return { results, pending, error, refresh };

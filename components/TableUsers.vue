@@ -133,6 +133,15 @@ import { Button } from '@/components/ui/button';
 import { type BraidCrumbState } from './my/BraidCrumb.vue';
 import { type User } from '../stores/users';
 
+useHead({
+  title: "Users manger",
+  meta: [
+    {
+      name: "description",
+      content: "Manage users here"
+    }
+    ]
+})
 const linePerPage = ref<number>();
 
 const isOpen = ref(false);

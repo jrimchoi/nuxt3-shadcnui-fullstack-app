@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import path from 'path';
+
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
@@ -13,7 +15,7 @@ export default defineNuxtConfig({
   ],
   tailwindcss: { exposeConfig: true },
   headlessui: { prefix: 'H' },
-  typescript: {shim: false},
+  typescript: { shim: false },
   app: {
     head: {
       title: 'Analytics',
@@ -27,7 +29,7 @@ export default defineNuxtConfig({
     },
   },
   // ssr : true is needed for nuxt-auth-utils module
-  ssr: true, // disable ssr mode, you cannot use nuxt generate 
+  ssr: true, // disable ssr mode, you cannot use nuxt generate
   shadcn: {
     /**
      * Prefix for all the imported component
@@ -41,9 +43,14 @@ export default defineNuxtConfig({
   },
   vite: {
     server: {
-        hmr: {
-            overlay: false,
-        }
+      hmr: {
+        overlay: false,
+      },
+    },
+  },
+  nitro: {
+    output: {
+      publicDir: path.join(__dirname, 'dist')
     }
-}
+  },
 });

@@ -20,7 +20,7 @@
           <div class="p-1">
             <template v-for="(p, i) in profileMenuOptions" :key="i">
               <hr v-if="p.divider" class="my-2" />
-              <HMenuItem v-else v-slot="{ active }">
+              <HMenuItem v-if="!p.divider" v-slot="{ active }">
                 <NuxtLink
                   @click="onClick({ path:p.path, title: p.title })"
                   :class="[active && 'bg-muted']"
@@ -51,13 +51,13 @@ defineProps({
   },
 });
 
-function onClick (payload: { path: string, title: String }) {
+async function onClick (payload: { path: string, title: String }) {
   if(payload.title === 'Logout') {
-    useAuthStore().clear()
+    await useAuthStore().logout();
     useRouter().push({ path: payload.path }) 
-    //window.location.reload()
   } else {
     useRouter().push({ path: payload.path }) 
   }
 }
+
 </script>

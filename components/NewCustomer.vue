@@ -5,10 +5,10 @@
       class="mt-5 flex w-full items-start gap-6 overflow-x-auto rounded-lg border bg-background p-5 scrollbar-thin scrollbar-thumb-input scrollbar-thumb-rounded-md hover:bg-accent"
     >
       <MyButtonLabel :state="state" />
-      <div v-if="!pending" v-for="customer in data">
+      <div v-show="!pending" v-for="customer in data">
         <MyCardAvatar :data="customer"  />
       </div>
-      <div v-else>
+      <div v-if="pending">
         <span>Pending</span>
       </div>
     </div>

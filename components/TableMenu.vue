@@ -22,14 +22,14 @@
           </div>
           <div class="p-1 flex flex-col">
             <template v-for="(p, i) in props.actions" :key="i">
-              <hr v-if="p.divider" class="my-2" />
-              <HMenuItem v-else v-slot="{ active }">
+              <hr v-show="p.divider" class="my-2" />
+              <HMenuItem v-show="!p.divider" v-slot="{ active }">
                 <NuxtLink
                   :to="parsePath(p.path)"
                   :class="[active && 'bg-muted']"
                   class="inline-flex w-full items-center rounded-md p-2 text-xs font-medium"
                 >
-                  <Icon v-if="p.icon" :name="p.icon" class="h-4 w-4 text-muted-foreground mr-2" /> {{ p.title }}
+                  <Icon v-show="p.icon" :name="p.icon" class="h-4 w-4 text-muted-foreground mr-2" /> {{ p.title }}
                 </NuxtLink>
               </HMenuItem>
             </template>

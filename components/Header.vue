@@ -1,4 +1,3 @@
-import { useAuthStore } from '../stores/auth';
 <template>
   <header class="sticky top-0 z-20 border-b bg-background/80 backdrop-blur">
     <!-- Flex container  -->
@@ -11,8 +10,9 @@ import { useAuthStore } from '../stores/auth';
 
       <!-- Right side of header -->
       <div class="flex items-center gap-5">
-        <Button variant="outline" size="sm" v-if="!useAuthStore().loggedIn" @click="login()">  Sign In <Icon name="heroicons:arrow-left-end-on-rectangle" class="ml-2 text-xl"/></Button>
+        <Button variant="outline" size="sm" v-show="!authenticated" @click="login()">  Sign In <Icon name="heroicons:arrow-left-end-on-rectangle" class="ml-2 text-xl"/></Button>
         <!-- black and wight  -->
+
         <MyButtonDark />
         <!-- Profile dropdown menu  -->
         <ProfileMenu :profileMenuOptions="profileMenuOptions" :user="user" />
@@ -52,10 +52,14 @@ const mobileMenu = (ok: true) => {
   isOpen.value = ok;
 }
 
-function login(){
-  useAuthStore().signIn();
-  window.location.reload();
-  //useRouter().push({ path: '/' })
+const { authenticated }  = storeToRefs(useAuthStore())
 
+async function login  (){
+ const data  = await useAuthStore().signIn();
+ user.value.email = data?.user?.email; 
+ console.log(data);
+ 
+ return user.value
 }
+
 </script>

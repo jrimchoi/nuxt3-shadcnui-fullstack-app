@@ -57,8 +57,6 @@ const { authenticated }  = storeToRefs(useAuthStore())
 async function login  (){
  const data  = await useAuthStore().signIn();
  user.value.email = data?.user?.email; 
- console.log(data);
- 
  return user.value
 }
 

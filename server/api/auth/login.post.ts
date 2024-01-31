@@ -1,4 +1,4 @@
-import { userFaker } from '~/utils/userFaker';
+import { userFaker } from '~/composables/userFaker';
 
 export default defineEventHandler(async event => {
   // create fake user

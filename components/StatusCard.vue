@@ -7,9 +7,9 @@
 </template>
 
 <script lang="ts" setup>
-import { type CardData } from '~/components/my/CardAnalytic.vue';
+import { type CardState } from '~/components/my/CardAnalytic.vue';
 const cardData = [
 { total: "Total Revenue", icon: "heroicons:banknotes", account: "$45,231.89", description: "20% more than last month" },
 { total: "Sales", icon: "heroicons:credit-card", account: "$12,231", description: "13.2% more than last month" },
-] as CardData[]
+] as CardState[]
 </script>

@@ -1,5 +1,5 @@
 import { User } from '~/stores/users'; 
-import { userFaker } from '~/utils/userFaker';
+import { userFaker } from '~/composables/userFaker';
 
 export default defineEventHandler(event => {
   const q = getQuery(event);

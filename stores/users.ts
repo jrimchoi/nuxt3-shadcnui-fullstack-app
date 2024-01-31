@@ -25,7 +25,7 @@ export interface User {
 export const useUsersStore = defineStore('users', () => {
   /** state for holding users */
   const users = ref<User[]>();
-  const gestUsers = computed(() => users.value)
+  const getUsers = computed(() => users.value)
   
   /** Function to load users data */
   async function loadUsers () {
@@ -51,11 +51,12 @@ export const useUsersStore = defineStore('users', () => {
         })
       });
     }
+
     users.value = results.value
     return { results, pending, error, refresh };
   }
 
-  return { users, loadUsers };
+  return { getUsers, loadUsers };
 });
 
 // make sure to pass the right store definition, `usersStore` in this case.

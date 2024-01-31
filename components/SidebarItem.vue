@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-col mt-2">
     <template v-for="(link, i) in links" :key="i">
-      <MyMenuItem v-on:logout="onLogout" v-if="!link.items" :state="link" />
-      <MyMenuItemNexted v-on:logout="onLogout" v-else :state="link" />
+      <MyMenuItem v-on:menu-click="onMenuClick" v-if="!link.items" :state="link" />
+      <MyMenuItemNexted v-on:menu-click="onMenuClick" v-else :state="link" />
     </template>
   </div>
 </template>
@@ -15,7 +15,7 @@ defineProps({
   },
 });
 
-async function onLogout(payload: { path: string; title: String }) {
+async function onMenuClick(payload: { path: string; title: String }) {
   if (payload.title === 'Logout') {
     await useAuthStore().logout();
     useRouter().push({ path: useRoute().path });

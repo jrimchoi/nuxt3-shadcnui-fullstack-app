@@ -29,7 +29,10 @@
                   :class="[active && 'bg-muted']"
                   class="inline-flex w-full items-center rounded-md p-2 text-xs font-medium"
                 >
-                  <Icon v-show="p.icon" :name="p.icon" class="h-4 w-4 text-muted-foreground mr-2" /> {{ p.title }}
+                  <Icon v-show="p.icon" :name="p.icon" class="h-4 w-4 text-muted-foreground mr-2" /> 
+                  <span class="truncate">
+                    {{ p.title }}
+                  </span> 
                 </NuxtLink>
               </HMenuItem>
             </template>

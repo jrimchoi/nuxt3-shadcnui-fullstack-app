@@ -1,9 +1,9 @@
 <template>
   <div>
     <NuxtLayout :name="layout" class="w-full col-span-9">
-      <div v-if="myPending" class="pt-5">Loading ...</div>
+      <div v-if="pending" class="pt-5">Loading ...</div>
       <div v-else class="w-full col-span-10">
-          <TableUsers :data="allUsers" :columns="columnsUser" />
+        <TableUsers :data="getUsers" :columns="columnsUser" />
       </div>
     </NuxtLayout>
   </div>
@@ -18,14 +18,15 @@ import TableAvatar from '~/components/my/TableAvatar.vue';
 import { Checkbox } from '../components/ui/checkbox';
 import TableMenu from '~/components/TableMenu.vue';
 import ButtonTable from '~/components/my/ButtonTable.vue';
-import { type User, useUsersStore } from '../stores/users';
+import { useUsersStore } from '../stores/users';
 
-const myPending = ref<boolean>(true);
-const allUsers = ref<User[]>([]);
+const pending = ref<boolean>(true);
+const { getUsers } = storeToRefs(useUsersStore());
+const { loadUsers } = useUsersStore();
+
 const layout = 'admin';
-const { loggedIn, user, session, clear } = useUserSession();
 
-const columnsUser= [
+const columnsUser = [
   {
     accessorKey: 'id',
     header: 'ID',
@@ -112,13 +113,14 @@ const columnsUser= [
   },
 ];
 
-
 onBeforeMount(() => {
   setTimeout(async () => {
-    const { loadUsers } = useUsersStore();
-    const { results: users, pending } = await loadUsers();
-    allUsers.value = users;
-    myPending.value = pending.value;
+    const { pending: pend } = await loadUsers();
+    pending.value = pend.value;
   }, 500);
 });
+
+watch(() => getUsers , () => {
+  alert('ok')
+})
 </script>

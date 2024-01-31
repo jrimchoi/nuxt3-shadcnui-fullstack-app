@@ -25,7 +25,7 @@ export function userFaker(): User {
       { title: 'Delete', icon: 'heroicons:minus', path: '/users/${id}', divider: false },
       { title: 'List', icon: 'heroicons:list-bullet', path: '/users/${id}/list', divider: false },
       { title: '', icon: '', path: '', divider: true },
-      { title: 'Pinter', icon: 'heroicons:printer', path: '/users/${id}/printer', divider: false },
+      { title: 'Printer', icon: 'heroicons:printer', path: '/users/${id}/printer', divider: false },
     ],
   };
   return user;

@@ -15,7 +15,7 @@
         >
           <div class="border-b px-3 py-1.5 text-sm">
             <p class="front-semibold">{{ user.username }}</p>
-            <a href="mailto:nastib@gmail.com" class="leading-none text-muted-foreground">{{ user.email }}</a>
+            <a href="mailto:nastib@gmail.com" class="leading-none text-muted-foreground truncate">{{ user.email }}</a>
           </div>
           <div class="p-1">
             <template v-for="(p, i) in profileMenuOptions" :key="i">

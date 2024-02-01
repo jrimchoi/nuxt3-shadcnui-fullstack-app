@@ -1,7 +1,8 @@
 # Protect Server Endpoints with Nuxt
 
-[*] Nuxt JS
-[*] Tailwindcss
-[*] Pinia
-[*] Shadcn ui
-[*] Nuxt auth utils
+* Nuxt 3
+* Tailwindcss
+* Pinia
+* Shadcn UI
+* Nuxt Auth Utils
+* TypeScript

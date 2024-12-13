@@ -1,204 +1,102 @@
 <template>
-  <div class="px-4 sm:px-6 lg:px-8">
-    <div class="flow-root">
-      <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div class="inline-block min-w-full py-4 align-middle sm:px-6 lg:px-8">
-          <MyBraidCrumb :state="braidCrumbState" class="my-5"/>
-          <!-- Table Top -->
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <div class="my-2 flex justify-end">
-                <Button variant="default" size="default"  @click="add()">
-                 <span> <Icon name="heroicons:plus" class="w-5 h-5 mr-2"/>Add</span>
-                </Button>
-              </div>
-              <div class="my-1 w-[350px]">
-                <Input type="text" class="border border-gray-400 rounded px-2 py-2" placeholder="Search..." v-model="filter" />
-              </div>
-            </div>
-
-            <div class="w-[150px]">
-              <MySelect v-model="linePerPage" :state="{ label: 'Lignes/Page', items: ['5', '10', '20','30','40', '50'] }" />
-            </div>
+  <div>
+    <Grid
+      :data="data"
+      :pageable="true"
+      :sortable="true"
+      :filterable="true"
+      :skip="skip"
+      :take="pageSize"
+      :total="total"
+      @pagechange="pageChange"
+      style="height: calc(100vh - 250px);"
+    >
+      <GridColumn field="id" title="ID" width="70" />
+      <GridColumn field="status" title="Status" width="100">
+        <template v-slot:cell="{ dataItem }">
+          <div class="capitalize bg-gray-200 rounded-md px-1 py-1 text-center">
+            {{ dataItem.status }}
           </div>
-          <!-- Table -->
-          <Table class="min-w-full divide-y divide-gray-500 dark:divide-gray-200">
-            <TableHeader>
-              <TableRow v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
-                <TableHead
-                  v-for="header in headerGroup.headers"
-                  :key="header.id"
-                  scope="col"
-                  class="px-1 py-2.5 text-left text-xs font-semibold text-primary"
-                  :class="{
-                    'cursor-pointer select-none': header.column.getCanSort(),
-                  }"
-                  @click="header.column.getToggleSortingHandler()?.($event)"
-                >
-                  <span class="truncate">
-                    <FlexRender :render="header.column.columnDef.header" :props="header.getContext()" />
-                    {{ { asc: ' ↑', desc: ' ↓' }[header.column.getIsSorted()] }}
-                  </span>
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody class="divide-y divide-gray-200 dark:divide-gray-500">
-              <template v-if="table.getRowModel().rows.length > 0">
-                <TableRow v-for="row in table.getRowModel().rows" :key="row.id" class="hover:bg-accent">
-                  <TableCell v-for="cell in row.getVisibleCells()" :key="cell.id" class="whitespace-nowrap px-1 py-3 text-xs text-gray-500">
-                    <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
-                  </TableCell>
-                </TableRow>
-              </template>
-              <template v-else>
-                <TableRow >
-                  <TableCell :colspan="columns.length" class="h-14 text-center text-sm truncate"> <span class="text-xl">😔</span> No users loaded ! </TableCell>
-                </TableRow>
-              </template>
-
-            </TableBody>
-          </Table>
-          <!-- Table down -->
-          <div class="flex justify-between items-center">
-            <div class="flex text-xs gap-2 text-muted-foreground">
-              <div class="flex">
-                Page {{ table.getState().pagination.pageIndex + 1 }} of {{ table.getPageCount() }} -
-                {{ table.getFilteredRowModel().rows.length }} results
-              </div>
-              <div class="flex-1" >
-                {{ table.getFilteredSelectedRowModel().rows.length }} of
-                {{ table.getFilteredRowModel().rows.length }} row(s) selected.
-              </div>
-            </div>
-    
-            <div class="flex justify-end w-40 gap-1">
-              <Button
-                variant="default"
-                class="border border-gray-300 rounded px-2 py-1 disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Start"
-                @click="table.setPageIndex(0)"
-              >
-                <Icon name="heroicons:chevron-double-left" class="w-4 h-4" />
-              </Button>
-              <Button
-                variant="default"
-                class="border border-gray-300 rounded px-2 py-1 disabled:opacity-50 disabled:cursor-not-allowed"
-                :disabled="!table.getCanPreviousPage()"
-                @click="table.previousPage()"
-              >
-                <Icon name="heroicons:chevron-left" class="w-4 h-4" />
-              </Button>
-    
-              <Button
-                variant="default"
-                class="border border-gray-300 rounded px-2 py-1 disabled:opacity-50 disabled:cursor-not-allowed"
-                :disabled="!table.getCanNextPage()"
-                @click="table.nextPage()"
-              >
-                <Icon name="heroicons:chevron-right" class="w-4 h-4" />
-              </Button>
-              <Button
-                variant="default"
-                class="border border-gray-300 rounded px-2 py-1 disabled:opacity-50 disabled:cursor-not-allowed"
-                @click="table.setPageIndex(table.getPageCount() - 1)"
-              >
-                <Icon name="heroicons:chevron-double-right" class="w-4 h-4" />
-              </Button>
-            </div>
+        </template>
+      </GridColumn>
+      <GridColumn field="avatar" title="Photo" width="100">
+        <template v-slot:cell="{ dataItem }">
+          <img :src="dataItem.avatar" alt="avatar" class="w-10 h-10 rounded-full" />
+        </template>
+      </GridColumn>
+      <GridColumn field="name" title="Name" width="150">
+        <template v-slot:cell="{ dataItem }">
+          {{ dataItem.firstName }} {{ dataItem.lastName }}
+        </template>
+      </GridColumn>
+      <GridColumn field="email" title="Email" width="200" />
+      <GridColumn field="price" title="Price" width="120">
+        <template v-slot:cell="{ dataItem }">
+          {{ new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(dataItem.price) }}
+        </template>
+      </GridColumn>
+      <GridColumn field="role" title="Role" width="100" />
+      <GridColumn field="createdAt" title="Created At" width="150">
+        <template v-slot:cell="{ dataItem }">
+          {{ format(new Date(dataItem.createdAt), 'yyyy/MM/dd HH:mm') }}
+        </template>
+      </GridColumn>
+      <GridColumn field="actions" title="Actions" width="120">
+        <template v-slot:cell="{ dataItem }">
+          <div class="flex gap-2">
+            <button class="p-1 hover:bg-gray-100 rounded-md">
+              <Icon name="heroicons:eye" class="w-4 h-4" />
+            </button>
+            <button class="p-1 hover:bg-gray-100 rounded-md">
+              <Icon name="heroicons:pencil" class="w-4 h-4" />
+            </button>
           </div>
-        </div>
-
-      </div>
-
-    </div>
+        </template>
+      </GridColumn>
+    </Grid>
   </div>
 </template>
 
 <script setup lang="ts">
+import * as KendoGrid from '@progress/kendo-vue-grid';
+const { Grid, GridColumn } = KendoGrid;
+import { format } from 'date-fns';
+import { computed, ref } from 'vue';
 
-import {
-  useVueTable,
-  FlexRender,
-  getCoreRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  getFilteredRowModel,
-} from '@tanstack/vue-table';
+const props = defineProps<{
+  data: any[]
+}>()
 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+// 페이지네이션 상태
+const pageSize = ref(10);
+const skip = ref(0);
+const total = computed(() => props.data.length);
 
-import { Button } from '@/components/ui/button';
-import { type BraidCrumbState } from './my/BraidCrumb.vue';
-import { type User } from '../stores/users';
-
-useHead({
-  title: "Users manger",
-  meta: [
-    {
-      name: "description",
-      content: "Manage users here"
-    }
-    ]
-})
-const linePerPage = ref<number>();
-
-const isOpen = ref(false);
-
-const braidCrumbState = ref<BraidCrumbState[]>(
-  [
-    { icon: 'heroicons:home', label: "Home", path: '/'},
-    { icon: 'heroicons:squares-plus', label: "App Center", path: '/'},
-    { icon: '', label: "Users", path: '/'}
-  ]
-)
-
-const tableMenu = (ok: true) => {
-  isOpen.value = ok;
+// 페이지 변경 핸들러
+const pageChange = (event: any) => {
+  skip.value = event.page.skip;
+  pageSize.value = event.page.take;
 };
-
-const props = defineProps({
-  data: { type: Object as PropType<User[]>, required: true },
-  columns: { type: Object as PropType<any[]>, required: true },
-});
-const buttonState = { icon: 'heroicons:plus', label: 'Add' };
-const data = ref(props.data);
-
-const sorting = ref<any[]>([]);
-const filter = ref('');
-
-const table = useVueTable({
-  data: data.value,
-  columns: props.columns,
-  getCoreRowModel: getCoreRowModel(),
-  getPaginationRowModel: getPaginationRowModel(),
-  getSortedRowModel: getSortedRowModel(),
-  getFilteredRowModel: getFilteredRowModel(),
-  state: {
-    get sorting() {
-      return sorting.value;
-    },
-    get globalFilter() {
-      return filter.value;
-    },
-  },
-  onSortingChange: updaterOrValue => {
-    sorting.value = typeof updaterOrValue === 'function' ? updaterOrValue(sorting.value) : updaterOrValue;
-  },
-  initialState: {
-    pagination: {
-      pageSize: 5,
-    },
-  },
-});
-
-watch(
-  () => linePerPage.value,
-  () => {
-    table.setPageSize(Number(linePerPage.value));
-  }
-);
-
-function add(){
-  alert('Add');
-}
 </script>
+
+<style>
+@import '@progress/kendo-theme-default/dist/all.css';
+
+.k-grid {
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.k-grid-header {
+  background-color: #f8fafc;
+}
+
+.k-grid td {
+  border-color: #e2e8f0;
+}
+
+.k-pager {
+  border-top: 1px solid #e2e8f0;
+  background-color: #fff;
+}
+</style>

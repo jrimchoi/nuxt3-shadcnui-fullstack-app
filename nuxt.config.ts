@@ -53,4 +53,28 @@ export default defineNuxtConfig({
       publicDir: path.join(__dirname, 'dist')
     }
   },
+  runtimeConfig: {
+    public: {
+      POLYGON_API_KEY: process.env.POLYGON_API_KEY
+    }
+  },
+  css: [
+    '@progress/kendo-theme-default/dist/all.css'
+  ],
+  build: {
+    transpile: [
+      '@progress/kendo-vue-grid',
+      '@progress/kendo-vue-data-tools',
+      '@progress/kendo-vue-inputs',
+      '@progress/kendo-vue-intl',
+      '@progress/kendo-vue-dropdowns',
+      '@progress/kendo-vue-dateinputs',
+      '@progress/kendo-data-query',
+      '@progress/kendo-drawing',
+      '@progress/kendo-vue-animation',
+      '@progress/kendo-vue-indicators',
+      '@progress/kendo-vue-common',
+      '@progress/kendo-licensing'
+    ]
+  }
 });

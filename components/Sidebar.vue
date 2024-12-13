@@ -40,6 +40,16 @@
       path: '/users',
     },
     {
+      title: "Favorites",
+      icon: "heroicons:star",
+      path: '/favorites',
+    },
+    {
+      title: "Tickers",
+      icon: "heroicons:user-group",
+      path: '/tickers',
+    },
+    {
       title: "Clients",
       icon: "heroicons:user-group",
       path: '/clients',

@@ -1,0 +1,54 @@
+{
+    "data": [
+      {
+        "id": "1",
+        "firstName": "jungrim",
+        "lastName": "choi",
+        "email": "jrimchoi@naver.com",
+        "avatar": "/avatars/user1.png",
+        "status": "active",
+        "role": "user",
+        "price": 1000,
+        "createdAt": "2024-01-01T00:00:00.000Z",
+        "actions": [
+          {
+            "title": "상세보기",
+            "icon": "eye",
+            "path": "/users/1",
+            "divider": false
+          },
+          {
+            "title": "수정하기",
+            "icon": "pencil",
+            "path": "/users/1/edit",
+            "divider": false
+          }
+        ]
+      },
+      {
+        "id": "2",
+        "firstName": "김",
+        "lastName": "철수",
+        "email": "kim@example.com",
+        "avatar": "/avatars/user2.png",
+        "status": "active",
+        "role": "admin",
+        "price": 2000,
+        "createdAt": "2024-01-02T00:00:00.000Z",
+        "actions": [
+          {
+            "title": "상세보기",
+            "icon": "eye",
+            "path": "/users/2",
+            "divider": false
+          },
+          {
+            "title": "수정하기",
+            "icon": "pencil",
+            "path": "/users/2/edit",
+            "divider": false
+          }
+        ]
+      }
+    ]
+  }

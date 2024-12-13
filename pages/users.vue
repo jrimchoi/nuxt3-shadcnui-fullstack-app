@@ -20,8 +20,7 @@ import TableMenu from '~/components/TableMenu.vue';
 import ButtonTable from '~/components/my/ButtonTable.vue';
 import { useUsersStore } from '../stores/users';
 
-const pending = ref<boolean>(true);
-const { getUsers } = storeToRefs(useUsersStore());
+const { getUsers, loading } = storeToRefs(useUsersStore());
 const { loadUsers } = useUsersStore();
 
 const layout = 'admin';
@@ -30,58 +29,48 @@ const columnsUser = [
   {
     accessorKey: 'id',
     header: 'ID',
-    cell: ({ row }) => h('div', { class: 'capitalize text-center' }, row.getValue('id')),
-    enableSorting: false,
+    cell: ({ row }) => h('div', { class: 'capitalize text-center' }, row.id)
   },
   {
-    id: 'status',
+    id: 'select',
     header: ({ table }) =>
       h(Checkbox, {
-        checked: table.getIsAllPageRowsSelected(),
-        'onUpdate:checked': value => table.toggleAllPageRowsSelected(!!value),
+        checked: false,
+        'onUpdate:checked': (value) => {},
         ariaLabel: 'Select all',
       }),
     cell: ({ row }) =>
       h(Checkbox, {
-        checked: row.getIsSelected(),
-        'onUpdate:checked': value => row.toggleSelected(!!value),
+        checked: false,
+        'onUpdate:checked': (value) => {},
         ariaLabel: 'Select row',
       }),
-    enableSorting: false,
-    enableHiding: false,
   },
   {
     accessorKey: 'status',
     header: 'Status',
-    cell: ({ row }) => h('div', { class: 'capitalize bg-gray-200 rounded-md px-1 py-1 text-center' }, row.getValue('status')),
+    cell: ({ row }) => h('div', { class: 'capitalize bg-gray-200 rounded-md px-1 py-1 text-center' }, row.status)
   },
   {
     accessorKey: 'avatar',
     header: 'Photo',
-    enableSorting: false,
-    cell: ({ row }) => h(TableAvatar, { avatar: row.getValue('avatar') }),
+    cell: ({ row }) => h(TableAvatar, { avatar: row.avatar })
   },
-  // {
-  //   accessorKey: 'firstName',
-  //   header: 'First name',
-  // },
-  // {
-  //   accessorKey: 'lastName',
-  //   header: 'Last name',
-  // },
   {
-    accessorFn: (row: { firstName: any; lastName: any }) => `${row.firstName} ${row.lastName}`,
+    accessorKey: 'name',
     header: 'Name',
+    cell: ({ row }) => h('div', {}, `${row.firstName} ${row.lastName}`)
   },
   {
     accessorKey: 'email',
     header: 'Email',
+    cell: ({ row }) => h('div', {}, row.email)
   },
   {
     accessorKey: 'price',
-    header: () => h('div', { class: 'text-right' }, 'Price'),
+    header: 'Price',
     cell: ({ row }) => {
-      const price = parseFloat(row.getValue('price'));
+      const price = parseFloat(row.price);
       const formatted = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
@@ -93,34 +82,30 @@ const columnsUser = [
   {
     accessorKey: 'role',
     header: 'Role',
+    cell: ({ row }) => h('div', {}, row.role)
   },
   {
     accessorKey: 'createdAt',
     header: 'Created At',
-    cell: (info: { getValue: () => string | number | Date }) => format(new Date(info.getValue()), 'd/MM/yyyy HH:MM'),
+    cell: ({ row }) => h('div', {}, format(new Date(row.createdAt), 'yyyy/MM/dd HH:mm'))
   },
   {
     accessorKey: 'detail',
-    header: 'Detail ',
-    cell: () => h(ButtonTable, { state: { icon: 'heroicons:eye', label: 'Detail' } }),
-    enableSorting: false,
+    header: 'Detail',
+    cell: () => h(ButtonTable, { state: { icon: 'heroicons:eye', label: 'Detail' } })
   },
   {
     accessorKey: 'actions',
-    header: 'Actions ',
-    cell: ({ row }) => h(TableMenu, { actions: row.original.actions, id: row.original.id }),
-    enableSorting: false,
-  },
+    header: 'Actions',
+    cell: ({ row }) => h(TableMenu, { actions: row.actions, id: row.id })
+  }
 ];
 
-onBeforeMount(() => {
-  setTimeout(async () => {
-    const { pending: pend } = await loadUsers();
-    pending.value = pend.value;
-  }, 500);
+onBeforeMount(async () => {
+  await loadUsers();
 });
 
-watch(() => getUsers , () => {
-  alert('ok')
-})
+watch(() => getUsers.value, () => {
+  // alert('ok')
+}, { deep: true })
 </script>
